@@ -3,9 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/usuario';
 
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators'
+import { catchError, map } from "rxjs/operators";
 import { BaseService } from 'src/app/services/base.service';
-
 
 @Injectable()
 export class ContaService extends BaseService {
@@ -14,22 +13,21 @@ export class ContaService extends BaseService {
 
     registrarUsuario(usuario: Usuario): Observable<Usuario> {
         let response = this.http
-            .post(this.UrlServiceV1 + '/nova-conta', usuario, this.ObterHeaderJson())
+            .post(this.UrlServiceV1 + 'nova-conta', usuario, this.ObterHeaderJson())
             .pipe(
                 map(this.extractData),
-                catchError(this.serviceError)
-            );
+                catchError(this.serviceError));
 
         return response;
     }
 
-    login(usuario: Usuario) {
-        // let response = this.http
-        //     .post(this.UrlServiceV1 + 'entrar', usuario, this.ObterHeaderJson())
-        //     .pipe(
-        //         map(this.extractData),
-        //         catchError(this.serviceError));
+    login(usuario: Usuario): Observable<Usuario> {
+        let response = this.http
+            .post(this.UrlServiceV1 + 'entrar', usuario, this.ObterHeaderJson())
+            .pipe(
+                map(this.extractData),
+                catchError(this.serviceError));
 
-        // return response;
+        return response;
     }
 }
