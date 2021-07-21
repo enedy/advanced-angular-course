@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControlName } from '@angular/fo
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { CustomValidators } from 'ngx-custom-validators';
+import { ToastrService } from 'ngx-toastr';
 import { FormBaseComponent } from '../../base-components/form-base.component';
 
 import { Usuario } from '../models/usuario';
@@ -26,7 +27,8 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private contaService: ContaService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, 
+    private toastr: ToastrService) {
 
       super();
 
@@ -76,18 +78,18 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
 
     this.contaService.LocalStorage.salvarDadosLocaisUsuario(response);
 
-    // let toast = this.toastr.success('Login realizado com Sucesso!', 'Bem vindo!!!');
-    // if(toast){
-    //   toast.onHidden.subscribe(() => {
-    //     this.returnUrl
-    //     ? this.router.navigate([this.returnUrl])
-    //     : this.router.navigate(['/home']);
-    //   });
-    // }
+    let toast = this.toastr.success('Login realizado com Sucesso!', 'Bem vindo!!!');
+    if(toast){
+      toast.onHidden.subscribe(() => {
+        this.returnUrl
+        ? this.router.navigate([this.returnUrl])
+        : this.router.navigate(['/home']);
+      });
+    }
   }
 
   processarFalha(fail: any){
     this.errors = fail.error.errors;
-    // this.toastr.error('Ocorreu um erro!', 'Opa :(');
+    this.toastr.error('Ocorreu um erro!', 'Opa :(');
   }
 }
