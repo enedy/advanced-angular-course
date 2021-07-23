@@ -9,8 +9,9 @@ import { utilsBr } from 'js-brasil';
 import { Fornecedor } from '../models/fornecedor';
 import { FornecedorService } from '../services/fornecedor.service';
 import { CepConsulta } from '../models/endereco';
-import { StringUtils } from 'src/app/utils/string-utils';
+// import { StringUtils } from 'src/app/utils/string-utils';
 import { FormBaseComponent } from 'src/app/base-components/form-base.component';
+import { StringUtils } from 'src/app/utils/string-utils';
 
 @Component({
   selector: 'app-novo',
@@ -88,6 +89,7 @@ export class NovoComponent extends FormBaseComponent implements OnInit {
       })
     });
 
+    // SETA O VALOR DEFAULT DO TIPO DE FORNECEDOR E ATIVO
     this.fornecedorForm.patchValue({ tipoFornecedor: '1', ativo: true });
   }
 
@@ -106,12 +108,12 @@ export class NovoComponent extends FormBaseComponent implements OnInit {
   trocarValidacaoDocumento() {
     if (this.tipoFornecedorForm().value === "1") {
       this.documento().clearValidators();
-      this.documento().setValidators([Validators.required, NgBrazilValidators.cpf]);
+      // this.documento().setValidators([Validators.required, NgBrazilValidators.cpf]);
       this.textoDocumento = "CPF (requerido)";
     }
     else {
       this.documento().clearValidators();
-      this.documento().setValidators([Validators.required, NgBrazilValidators.cnpj]);
+      // this.documento().setValidators([Validators.required, NgBrazilValidators.cnpj]);
       this.textoDocumento = "CNPJ (requerido)";
     }
   }
@@ -132,7 +134,8 @@ export class NovoComponent extends FormBaseComponent implements OnInit {
     this.fornecedorService.consultarCep(cep)
       .subscribe(
         cepRetorno => this.preencherEnderecoConsulta(cepRetorno),
-        erro => this.errors.push(erro));
+        erro => this.errors.push(erro)
+        );
   }
 
   preencherEnderecoConsulta(cepConsulta: CepConsulta) {
@@ -154,8 +157,8 @@ export class NovoComponent extends FormBaseComponent implements OnInit {
       this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
       this.formResult = JSON.stringify(this.fornecedor);
 
-      this.fornecedor.endereco.cep = StringUtils.somenteNumeros(this.fornecedor.endereco.cep);
-      this.fornecedor.documento = StringUtils.somenteNumeros(this.fornecedor.documento);
+      // this.fornecedor.endereco.cep = StringUtils.somenteNumeros(this.fornecedor.endereco.cep);
+      // this.fornecedor.documento = StringUtils.somenteNumeros(this.fornecedor.documento);
       // forçando o tipo fornecedor ser serializado como INT
       this.fornecedor.tipoFornecedor = parseInt(this.fornecedor.tipoFornecedor.toString());
 
