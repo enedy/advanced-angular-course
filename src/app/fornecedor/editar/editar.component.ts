@@ -42,7 +42,8 @@ export class EditarComponent extends FormBaseComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService
+    ) {
 
     super();
 
